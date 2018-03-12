@@ -7,8 +7,8 @@ let _apiVersion;
 class ReactNativeOmise {
 
     config(publicKey, apiVersion = "2015-11-17") {
-        this._publicKey = publicKey;
-        this._apiVersion = apiVersion;
+        _publicKey = publicKey;
+        _apiVersion = apiVersion;
     }
 
     createToken(data) {
@@ -20,12 +20,19 @@ class ReactNativeOmise {
             }
 
             // set headers
-            let headers = new Headers();
-            headers.append('Authorization', 'Basic ' + base64.encode(_publicKey + ":"));
-            headers.append('User-Agent', pkgConfig.name + "/" + pkgConfig.version);
-            headers.append('Content-Type', 'application/json');
+            let headers = {
+                authorization: 'Basic ' + base64.encode(_publicKey + ":"),
+                userAgent: pkgConfig.name + "/" + pkgConfig.version,
+                contentType: 'application/json'
+            };
+            // headers.append('Authorization', 'Basic ' + base64.encode(_publicKey + ":"));
+            // headers.append('User-Agent', pkgConfig.name + "/" + pkgConfig.version);
+            // headers.append('Content-Type', 'application/json');
             if (_apiVersion && _apiVersion !== "") {
-                headers.append('Omise-Version', _apiVersion);
+                // headers.append('Omise-Version', _apiVersion);
+                headers = headers & {
+                    omiseVersion: _apiVersion
+                };
             }
 
             // use fetch to request Omise API
