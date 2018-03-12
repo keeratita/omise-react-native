@@ -11,6 +11,7 @@ describe('Omise', function () {
 
         beforeEach(function () {
             global.fetch = require('node-fetch');
+            global.Headers = require('fetch-ponyfill')().Headers;
         });
 
 
