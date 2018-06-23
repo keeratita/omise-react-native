@@ -7,4 +7,10 @@ module.exports = {
             require(['./mocks', name].join('/'));
         }
     },
+    cleanAll: function() {
+        if (process.env.NOCK_OFF !== 'true') {
+            const nock = require("nock");
+            nock.cleanAll();
+        }
+    }
 };
