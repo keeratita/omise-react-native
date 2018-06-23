@@ -2,8 +2,14 @@
   "name": "omise-react-native",
   "version": "0.0.4",
   "private": false,
-  "description": "",
+  "description": "Unofficial react-native package for Omise",
   "main": "index.js",
+  "keywords": [
+    "react-native",
+    "omise",
+    "android",
+    "ios"
+  ],
   "scripts": {
     "compile": "rm -rf dist/* && babel . --out-dir dist --ignore node_modules,dist --source-maps",
     "test": "mocha test",
