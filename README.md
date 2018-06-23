@@ -18,7 +18,7 @@ Omise.config('pkey_test_596un7xggnyo73nm7an', '2015-11-17');
 ```
 
 ## Usage
-
+### Create a token
 ```
 const data = await Omise.createToken({
     'card': {
@@ -30,7 +30,18 @@ const data = await Omise.createToken({
         'expiration_year': 2018,
         'security_code': 123
     }
-    });
+});
 
-    console.log("data", data);
+console.log("data", data);
+```
+
+### Create a source
+```
+const data = await Omise.createSource(
+    'type': 'internet_banking_bbl',
+    'amount': 500000,
+    'currency': 'thb'
+});
+
+console.log("data", data);
 ```
