@@ -34,13 +34,14 @@ class ReactNativeOmise {
      * @return {*} headers
      */
     getHeaders() {
-        let headers = new Headers();
-        headers.append('Authorization', 'Basic ' + base64.encode(_publicKey + ":"));
-        headers.append('User-Agent', pkgConfig.name + "/" + pkgConfig.version);
-        headers.append('Content-Type', 'application/json');
+        let headers = {
+            'Authorization': 'Basic ' + base64.encode(_publicKey + ":"),
+            'User-Agent': pkgConfig.name + "/" + pkgConfig.version,
+            'Content-Type': 'application/json',
+        };
 
         if (_apiVersion && _apiVersion !== "") {
-            headers.append('Omise-Version', _apiVersion);
+            headers['Omise-Version'] = _apiVersion;
         }
 
         return headers;
@@ -61,7 +62,7 @@ class ReactNativeOmise {
                 reject("Please config your public key");
                 return;
             }
-            
+
             return fetch(tokenEndpoint, {
                 method: 'POST',
                 cache: 'no-cache',
@@ -93,7 +94,7 @@ class ReactNativeOmise {
                 reject("Please config your public key");
                 return;
             }
-            
+
             return fetch(sourceEndpoint, {
                 method: 'POST',
                 cache: 'no-cache',
