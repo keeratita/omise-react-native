@@ -29,10 +29,10 @@
     "base-64": "^0.1.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "nock": "^9.3.3",
-    "node-fetch": "^2.1.2",
-    "fetch-ponyfill": "^6.0.2"
+    "chai": "^4.2.0",
+    "fetch-ponyfill": "^6.0.2",
+    "mocha": "^6.1.4",
+    "nock": "^10.0.6",
+    "node-fetch": "^2.6.0"
   }
 }
