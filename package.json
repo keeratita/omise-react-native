@@ -1,6 +1,6 @@
 {
   "name": "omise-react-native",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": false,
   "description": "Unofficial react-native package for Omise",
   "main": "index.js",
