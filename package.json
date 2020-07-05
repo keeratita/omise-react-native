@@ -1,6 +1,6 @@
 {
   "name": "omise-react-native",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": false,
   "description": "Unofficial react-native package for Omise",
   "main": "index.js",
@@ -30,9 +30,9 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "fetch-ponyfill": "^6.1.0",
-    "mocha": "^6.2.3",
-    "nock": "^12.0.3",
+    "fetch-ponyfill": "^6.1.1",
+    "mocha": "^8.0.1",
+    "nock": "^13.0.2",
     "node-fetch": "^2.6.0"
   }
 }
