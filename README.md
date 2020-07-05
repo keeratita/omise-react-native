@@ -1,7 +1,10 @@
 # omise-react-native
 ==========
 
-Non-official Omise library for react-native
+Please note that this is an unofficial Omise library for react-native.
+And please learn a security best practices from Omise's document before modifying code.
+
+- [Security Best Practice](https://www.omise.co/security-best-practices)
 
 ## Install
 
