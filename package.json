@@ -33,6 +33,6 @@
     "fetch-ponyfill": "^6.1.1",
     "mocha": "^8.0.1",
     "nock": "^13.0.2",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }
