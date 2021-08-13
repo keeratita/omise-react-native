@@ -4,6 +4,7 @@ const vaultEndpoint = "https://vault.omise.co/";
 const apiEndpoint = "https://api.omise.co/";
 
 let _publicKey;
+let _secretKey;
 let _apiVersion;
 
 /**
@@ -17,16 +18,19 @@ class ReactNativeOmise {
     constructor() {
         this.createSource = this.createSource.bind(this);
         this.createToken = this.createToken.bind(this);
+        this.createCharge = this.createCharge.bind(this);
         this.getCapabilities = this.getCapabilities.bind(this);
     }
 
     /**
-     * To set a public key and API version
+     * To set a public key, secret key and API version
      * @param {String} publicKey 
+     * @param {String} secretKey
      * @param {String} apiVersion 
      */
-    config(publicKey, apiVersion = "2015-11-17") {
+    config(publicKey, secretKey, apiVersion = "2015-11-17") {
         _publicKey = publicKey;
+        _secretKey = secretKey;
         _apiVersion = apiVersion;
     }
 
@@ -34,9 +38,9 @@ class ReactNativeOmise {
      * Get headers
      * @return {*} headers
      */
-    getHeaders() {
+    getHeaders(key) {
         let headers = {
-            'Authorization': 'Basic ' + base64.encode(_publicKey + ":"),
+            'Authorization': 'Basic ' + base64.encode(key + ":"),
             'User-Agent': pkgConfig.name + "/" + pkgConfig.version,
             'Content-Type': 'application/json',
         };
@@ -57,7 +61,7 @@ class ReactNativeOmise {
     createToken(data) {
         const tokenEndpoint = vaultEndpoint + "tokens";
         // set headers
-        let headers = this.getHeaders();
+        let headers = this.getHeaders(_publicKey);
 
         return new Promise((resolve, reject) => {
             // verify a public key
@@ -91,7 +95,7 @@ class ReactNativeOmise {
     createSource(data) {
         const sourceEndpoint = apiEndpoint + "sources";
         // set headers
-        let headers = this.getHeaders();
+        let headers = this.getHeaders(_publicKey);
 
         return new Promise((resolve, reject) => {
             // verify a public key
@@ -101,6 +105,40 @@ class ReactNativeOmise {
             }
 
             return fetch(sourceEndpoint, {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: headers,
+                body: JSON.stringify(data)
+            }).then((response) => {
+                if (response.ok && response.status === 200) {
+                    resolve(response.json());
+                } else {
+                    console.log("response not ok", response);
+                    reject(response.json());
+                }
+            }).catch((error) => resolve(error));
+        });
+    }
+
+    /**
+     * Create a charge
+     * @param {*} data
+     * 
+     * @returns 
+     */
+    createCharge(data) {
+        const chargeEndpoint = apiEndpoint + "charges";
+        // set headers
+        let headers = this.getHeaders(_secretKey);
+
+        return new Promise((resolve, reject) => {
+            // verify a secret key
+            if (!_secretKey || _secretKey === "") {
+                reject("Please config your secret key");
+                return;
+            }
+
+            return fetch(chargeEndpoint, {
                 method: 'POST',
                 cache: 'no-cache',
                 headers: headers,
@@ -154,5 +192,6 @@ module.exports = {
     config: reactNativeOmise.config,
     createToken: reactNativeOmise.createToken,
     createSource: reactNativeOmise.createSource,
+    createCharge: reactNativeOmise.createCharge,
     getCapabilities: reactNativeOmise.getCapabilities
 }
